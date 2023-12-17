@@ -9,6 +9,11 @@ class Contact extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'hobbies' => 'array',
+        'skills' => 'array',
+    ];
+
     protected $fillable = [
         'name',
         'category_id',
