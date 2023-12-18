@@ -75,7 +75,8 @@ class ContactResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('category.title'),
+                Tables\Columns\TextColumn::make('category.title')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('city.title'),
                 Tables\Columns\TextColumn::make('country.title')
                     ->label('Nationality'),
@@ -83,11 +84,22 @@ class ContactResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('sex'),
                 Tables\Columns\TextColumn::make('dob')
+                    ->label('Birthday')
                     ->date()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
+                Tables\Columns\TextColumn::make('age'),
+                Tables\Columns\TextColumn::make('skills.title')
+                    ->size('xs')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
+                    ->size('xs')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->size('xs')
+                    ->copyable()
+                    ->copyMessage('Email address copied')
+                    ->copyMessageDuration(1500)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -54,5 +55,10 @@ class Contact extends Model
     public function religion()
     {
         return $this->belongsTo(Religion::class);
+    }
+
+    public function getAgeAttribute()
+    {
+        return Carbon::parse($this->attributes['dob'])->age;
     }
 }
