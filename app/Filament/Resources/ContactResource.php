@@ -19,6 +19,8 @@ class ContactResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
+    protected static ?int $navigationSort = 1;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -77,7 +79,8 @@ class ContactResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('category.title')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('city.title'),
+                Tables\Columns\TextColumn::make('city.title')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('country.title')
                     ->label('Nationality'),
                 Tables\Columns\TextColumn::make('religion.title')
@@ -90,7 +93,7 @@ class ContactResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('age'),
                 Tables\Columns\TextColumn::make('skills.title')
-                    ->size('xs')
+                    ->badge()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
                     ->size('xs')
@@ -137,5 +140,10 @@ class ContactResource extends Resource
             'create' => Pages\CreateContact::route('/create'),
             'edit' => Pages\EditContact::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 }

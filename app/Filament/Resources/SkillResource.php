@@ -17,6 +17,7 @@ class SkillResource extends Resource
 {
     protected static ?string $model = Skill::class;
 
+    protected static ?string $navigationGroup = 'Classifiers';
     protected static ?string $navigationIcon = 'heroicon-o-tag';
 
     public static function form(Form $form): Form
