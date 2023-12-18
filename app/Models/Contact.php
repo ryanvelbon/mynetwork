@@ -57,6 +57,11 @@ class Contact extends Model
         return $this->belongsTo(Religion::class);
     }
 
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
+    }
+
     public function getAgeAttribute()
     {
         return Carbon::parse($this->attributes['dob'])->age;
