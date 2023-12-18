@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CityResource\Pages;
 use App\Filament\Resources\CityResource\RelationManagers;
 use App\Models\City;
+use App\Models\Country;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -17,18 +18,21 @@ class CityResource extends Resource
 {
     protected static ?string $model = City::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-map-pin';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('country_id')
-                    ->required()
-                    ->numeric(),
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Select::make('country_id')
+                    ->label('Country')
+                    ->relationship('country', 'title')
+                    ->preload()
+                    ->searchable()
+                    ->required(),
             ]);
     }
 
@@ -36,11 +40,15 @@ class CityResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('country_id')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('country.title')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('contacts_count')
+                    ->counts('contacts')
+                    ->label('Contacts')
+                    ->sortable(),
             ])
             ->filters([
                 //

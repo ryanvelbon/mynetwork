@@ -35,6 +35,10 @@ class ReligionResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('contacts_count')
+                    ->counts('contacts')
+                    ->label('Contacts')
+                    ->sortable(),
             ])
             ->filters([
                 //

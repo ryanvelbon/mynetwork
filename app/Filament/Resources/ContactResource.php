@@ -17,40 +17,54 @@ class ContactResource extends Resource
 {
     protected static ?string $model = Contact::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('category_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('country_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('city_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('religion_id')
-                    ->required()
-                    ->numeric(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('sex')
-                    ->required()
-                    ->maxLength(1),
-                Forms\Components\DatePicker::make('dob')
+                Forms\Components\Select::make('sex')
+                    ->options([
+                        'm' => 'Male',
+                        'f' => 'Female',
+                    ])
                     ->required(),
+                Forms\Components\DatePicker::make('dob'),
                 Forms\Components\TextInput::make('phone')
                     ->tel()
-                    ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
                     ->email()
-                    ->required()
                     ->maxLength(255),
+                Forms\Components\Select::make('category_id')
+                    ->label('Category')
+                    ->relationship('category', 'title')
+                    ->searchable()
+                    ->preload(),
+                Forms\Components\Select::make('country_id')
+                    ->label('Nationality')
+                    ->relationship('country', 'title')
+                    ->searchable()
+                    ->preload(),
+                Forms\Components\Select::make('city_id')
+                    ->label('City')
+                    ->relationship('city', 'title')
+                    ->searchable()
+                    ->preload(),
+                Forms\Components\Select::make('religion_id')
+                    ->label('Religion')
+                    ->relationship('religion', 'title')
+                    ->searchable()
+                    ->preload(),
+                Forms\Components\Select::make('hobbies')
+                    ->multiple()
+                    ->relationship('hobbies', 'title')
+                    ->preload(),
+                Forms\Components\CheckboxList::make('skills')
+                    ->relationship('skills', 'title'),
             ]);
     }
 
@@ -58,20 +72,14 @@ class ContactResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('category_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('country_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('city_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('religion_id')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('category.title'),
+                Tables\Columns\TextColumn::make('city.title'),
+                Tables\Columns\TextColumn::make('country.title')
+                    ->label('Nationality'),
+                Tables\Columns\TextColumn::make('religion.title'),
                 Tables\Columns\TextColumn::make('sex')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('dob')

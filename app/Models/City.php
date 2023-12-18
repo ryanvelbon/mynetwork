@@ -12,4 +12,14 @@ class City extends Model
         'title',
         'country_id',
     ];
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class);
+    }
 }

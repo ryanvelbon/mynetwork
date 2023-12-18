@@ -11,14 +11,14 @@ return new class extends Migration
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('category_id')->constrained()->onDelete('CASCADE');
-            $table->foreignId('country_id')->constrained()->onDelete('CASCADE');
-            $table->foreignId('city_id')->constrained()->onDelete('CASCADE');
+            $table->foreignId('category_id')->nullable()->constrained()->onDelete('CASCADE');
+            $table->foreignId('country_id')->nullable()->constrained()->onDelete('CASCADE');
+            $table->foreignId('city_id')->nullable()->constrained()->onDelete('CASCADE');
             $table->char('sex', 1); // M or F
-            $table->date('dob');
-            $table->string('phone');
-            $table->string('email')->unique();
-            $table->foreignId('religion_id')->constrained()->onDelete('CASCADE');
+            $table->date('dob')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->foreignId('religion_id')->nullable()->constrained()->onDelete('CASCADE');
             $table->timestamps();
         });
     }
