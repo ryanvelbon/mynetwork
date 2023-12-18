@@ -25,48 +25,58 @@ class ContactResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Select::make('sex')
-                    ->options([
-                        'm' => 'Male',
-                        'f' => 'Female',
-                    ])
-                    ->required(),
-                Forms\Components\DatePicker::make('dob'),
-                Forms\Components\TextInput::make('phone')
-                    ->tel()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->maxLength(255),
-                Forms\Components\Select::make('category_id')
-                    ->label('Category')
-                    ->relationship('category', 'title')
-                    ->searchable()
-                    ->preload(),
-                Forms\Components\Select::make('country_id')
-                    ->label('Nationality')
-                    ->relationship('country', 'title')
-                    ->searchable()
-                    ->preload(),
-                Forms\Components\Select::make('city_id')
-                    ->label('City')
-                    ->relationship('city', 'title')
-                    ->searchable()
-                    ->preload(),
-                Forms\Components\Select::make('religion_id')
-                    ->label('Religion')
-                    ->relationship('religion', 'title')
-                    ->searchable()
-                    ->preload(),
-                Forms\Components\Select::make('hobbies')
-                    ->multiple()
-                    ->relationship('hobbies', 'title')
-                    ->preload(),
-                Forms\Components\CheckboxList::make('skills')
-                    ->relationship('skills', 'title'),
+                Forms\Components\Tabs::make()->tabs([
+                    Forms\Components\Tabs\Tab::make('Basic info')
+                        ->schema([
+                            Forms\Components\TextInput::make('name')
+                                ->required()
+                                ->maxLength(255),
+                            Forms\Components\Select::make('sex')
+                                ->options([
+                                    'm' => 'Male',
+                                    'f' => 'Female',
+                                ])
+                                ->required(),
+                            Forms\Components\DatePicker::make('dob'),
+                            Forms\Components\TextInput::make('phone')
+                                ->tel()
+                                ->maxLength(255),
+                            Forms\Components\TextInput::make('email')
+                                ->email()
+                                ->maxLength(255),
+                            Forms\Components\Select::make('category_id')
+                                ->label('Category')
+                                ->relationship('category', 'title')
+                                ->searchable()
+                                ->preload(),
+                            Forms\Components\Select::make('country_id')
+                                ->label('Nationality')
+                                ->relationship('country', 'title')
+                                ->searchable()
+                                ->preload(),
+                            Forms\Components\Select::make('city_id')
+                                ->label('City')
+                                ->relationship('city', 'title')
+                                ->searchable()
+                                ->preload(),
+                            Forms\Components\Select::make('religion_id')
+                                ->label('Religion')
+                                ->relationship('religion', 'title')
+                                ->searchable()
+                                ->preload(),
+                            Forms\Components\Select::make('hobbies')
+                                ->multiple()
+                                ->relationship('hobbies', 'title')
+                                ->preload(),
+                        ])
+                        ->columns(2),
+                    Forms\Components\Tabs\Tab::make('Expertise')
+                        ->schema([
+                            Forms\Components\CheckboxList::make('skills')
+                                ->relationship('skills', 'title'),
+                        ]),
+                ])
+                ->columnSpanFull()
             ]);
     }
 
