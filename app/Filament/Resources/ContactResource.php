@@ -79,9 +79,9 @@ class ContactResource extends Resource
                 Tables\Columns\TextColumn::make('city.title'),
                 Tables\Columns\TextColumn::make('country.title')
                     ->label('Nationality'),
-                Tables\Columns\TextColumn::make('religion.title'),
-                Tables\Columns\TextColumn::make('sex')
+                Tables\Columns\TextColumn::make('religion.title')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('sex'),
                 Tables\Columns\TextColumn::make('dob')
                     ->date()
                     ->sortable(),
