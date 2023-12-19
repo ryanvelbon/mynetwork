@@ -25,6 +25,7 @@ class Contact extends Model
         'phone',
         'email',
         'religion_id',
+        'introduced_by_id',
     ];
 
     public function category()
@@ -60,6 +61,16 @@ class Contact extends Model
     public function notes()
     {
         return $this->hasMany(Note::class);
+    }
+
+    public function introducedBy()
+    {
+        return $this->belongsTo(Contact::class, 'introduced_by_id');
+    }
+
+    public function introductions()
+    {
+        return $this->hasMany(Contact::class, 'introduced_by_id');
     }
 
     public function getAgeAttribute()

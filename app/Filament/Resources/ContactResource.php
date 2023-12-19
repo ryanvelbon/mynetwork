@@ -68,6 +68,11 @@ class ContactResource extends Resource
                                 ->multiple()
                                 ->relationship('hobbies', 'title')
                                 ->preload(),
+                            Forms\Components\Select::make('introduced_by_id')
+                                ->label('Who introduced you?')
+                                ->relationship('introducedBy', 'name')
+                                ->searchable()
+                                ->preload(),
                         ])
                         ->columns(2),
                     Forms\Components\Tabs\Tab::make('Expertise')
@@ -87,6 +92,9 @@ class ContactResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('introductions_count')
+                    ->label('Intros')
+                    ->counts('introductions'),
                 Tables\Columns\TextColumn::make('category.title')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('city.title')

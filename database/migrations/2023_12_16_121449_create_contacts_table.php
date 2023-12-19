@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->foreignId('religion_id')->nullable()->constrained()->onDelete('CASCADE');
+            $table->foreignId('introduced_by_id')->nullable()->constrained('contacts')->onDelete('set null');
             $table->timestamps();
         });
     }
