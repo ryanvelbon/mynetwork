@@ -36,6 +36,7 @@ class AppPanelProvider extends PanelProvider
                 'gray' => Color::Slate,
             ])
             ->sidebarCollapsibleOnDesktop()
+            ->spa()
             ->userMenuItems([
                 MenuItem::make()
                     ->label('Settings')

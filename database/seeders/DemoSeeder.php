@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\City;
+use App\Models\Contact;
 use App\Models\Hobby;
 use App\Models\Religion;
 use App\Models\Skill;
@@ -71,5 +72,7 @@ class DemoSeeder extends Seeder
         foreach ($hobbies as $title) {
             Hobby::create(['title' => $title]);
         }
+
+        Contact::factory(50)->create();
     }
 }
